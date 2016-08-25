@@ -14,10 +14,8 @@ void setup() {
   pinMode(7, OUTPUT);  // channel F
   pinMode(8, OUTPUT);  // channel G
   pinMode(9, OUTPUT);  // channel H
-  // We also have two status LEDs, pin 10 on the Escudo, 
-  // and pin 13 on the Arduino itself
-  pinMode(10, OUTPUT);     
-  pinMode(13, OUTPUT);    
+  
+  pinMode(13, OUTPUT); // status LED
 }
 
 void loop() 
@@ -47,7 +45,7 @@ unsigned long getWaitTime(float bpm)
 }
 
 /* Pattern Functions */
-void line(float waitTime)
+void line(unsigned long waitTime)
 {
   int x,status;
   
@@ -62,12 +60,9 @@ void line(float waitTime)
     //       get initialized? etc.
     // Note: Once figured out, will eventually factor out and distribute
     //       amongst all of the pattern functions.
-    Serial.println("Loop");     // DEBUG
-    Serial.println(status);     // DEBUG
-    digitalWrite(10, status);   // blink both status LEDs
-    digitalWrite(13, status);
+    //digitalWrite(10, status);   // blink both status LEDs
+    digitalWrite(13, status);     // bink status LED
     status = !status;
-    Serial.println(status);     // DEBUG
   }
 }
 
@@ -77,7 +72,7 @@ void line(float waitTime)
 //       waittime.
 //       I think in the long run we'll want to pass in bpm, but for now
 //       we'll use waitTime until it's time to refactor
-void zigzag(float waitTime)
+void zigzag(unsigned long waitTime)
 {
   int x; // pin number
   
@@ -87,7 +82,7 @@ void zigzag(float waitTime)
   {
     flashEL(x, waitTime);
   }
-  for (x=9; x>=2; x++)
+  for (x=9; x>=2; x--)
   {
     flashEL(x, waitTime);
   }

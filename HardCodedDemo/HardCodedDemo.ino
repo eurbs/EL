@@ -54,24 +54,12 @@ void line(unsigned long waitTime)
   {
     flashEL(x, waitTime);
 
-
-    // Note: Currently using prints to understand exactly how status
-    //       is being used in this code (is it a keyword? how does it
-    //       get initialized? etc.
-    // Note: Once figured out, will eventually factor out and distribute
-    //       amongst all of the pattern functions.
-    //digitalWrite(10, status);   // blink both status LEDs
     digitalWrite(13, status);     // bink status LED
     status = !status;
   }
 }
 
-// note: will wait time be different for each pattern based on bpm?
-//       basically, should we pass in bpm or pass in waitTime?
-//       if we pass in bpm, each pattern will have to calculate its own
-//       waittime.
-//       I think in the long run we'll want to pass in bpm, but for now
-//       we'll use waitTime until it's time to refactor
+
 void zigzag(unsigned long waitTime)
 {
   int x; // pin number

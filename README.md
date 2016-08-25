@@ -7,9 +7,9 @@ Code for the [SparkFun EL Wire Sequencer](https://www.sparkfun.com/products/1278
 
 ### Can't Upload Code
 
-'''
+```
 avrdude: stk500_recv(): programmer is not responding
 avrdude: stk500_getsync() attempt 1 of 10: not in sync: resp=0x00
-'''
+```
 
 Stopgap measure: unplug FTDI, plug it back in, upload.

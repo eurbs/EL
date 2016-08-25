@@ -13,18 +13,22 @@ void setup() {
   pinMode(6, OUTPUT);  // channel E
   pinMode(7, OUTPUT);  // channel F
   pinMode(8, OUTPUT);  // channel G
-  pinMode(9, OUTPUT);  // channel H
+  pinMode(9, OUTPUT);  // channel H -- no EL plugged in
   
   pinMode(13, OUTPUT); // status LED
 }
 
 void loop() 
 {
-  float bpm = 200;
+  float bpm = 20;
   unsigned long waitTime = getWaitTime(bpm);
   
   line(waitTime);
   zigzag(waitTime);
+  twoAtATime(waitTime);
+  fourAtATime(waitTime);
+  upAndDown(waitTime);
+  wave(waitTime);
 }
 
 /* Other Helper Functions */
@@ -75,3 +79,71 @@ void zigzag(unsigned long waitTime)
     flashEL(x, waitTime);
   }
 }
+
+void twoAtATime(unsigned long waitTime)
+{
+  int x;  // pin number
+
+  for (x=2; x<8; x+=2)
+  {
+    digitalWrite(x, HIGH);
+    digitalWrite(x+1, HIGH);
+    delay(waitTime);
+    digitalWrite(x, LOW);
+    digitalWrite(x+1, LOW);
+  }
+}
+
+void fourAtATime(unsigned long waitTime)
+{
+  int x;  // pin number
+
+  for (x=2; x<=9; x+=4)
+  {
+    digitalWrite(x, HIGH);
+    digitalWrite(x+1, HIGH);
+    digitalWrite(x+2, HIGH);
+    digitalWrite(x+3, HIGH);
+    delay(waitTime);
+    digitalWrite(x, LOW);
+    digitalWrite(x+1, LOW);
+    digitalWrite(x+2, LOW);
+    digitalWrite(x+3, LOW);
+  }
+}
+
+void wave(unsigned long waitTime)
+{
+  // turn each on one by one, then back down
+  // i think this is the wave
+  int x;
+  for (x=2; x<=9; x++)
+  {
+    digitalWrite(x, HIGH);
+    delay(waitTime);
+  }
+  for (x=2; x<=9; x++)
+  {
+    digitalWrite(x, LOW);
+    delay(waitTime);
+  }
+}
+
+void upAndDown(unsigned long waitTime)
+{
+  // turn each on one by one, then back down
+  // or is this the wave?
+  int x;
+  for (x=2; x<=9; x++)
+  {
+    digitalWrite(x, HIGH);
+    delay(waitTime);
+  }
+  for (x=9; x>=2; x--)
+  {
+    digitalWrite(x, LOW);
+    delay(waitTime);
+  }
+  delay(waitTime);
+}
+
